@@ -29,11 +29,25 @@ Berdasarkan permasalahan di atas, kami hendak membuat sebuah aplikasi perangkat 
 
 ### :page_facing_up: Daftar fitur atau modul yang diimplementasikan beserta kontrak kinerja per anggota kelompok.
 
-- Landing Page (Login, Logout, register account(Pelaku, Konsumen, Investor UMKM)) yang dikerjakan Rafinal Haryokusumo Taloputra
-- Daftar lokasi dan detail deskripsi/profil UMKM yang dikerjakan Ahmadhi Prananta Hastiputra
-- Dashboard laporan penjualan UMKM (untuk pihak investor) yang dikerjakan Sania Rizqi Maharani
-- Berita UMKM yang dikerjakan Shafa Aleyda Tsabitah
-- Review/rating UMKM (dari konsumen) yang dikerjakan oleh Ihza Dafa Maulidan 
+- Landing Page -  **Rafinal Haryokusumo Taloputra**
+
+Landing page akan memuat halaman untuk melakukan proses *login* dan *register*. Pada saat registrasi akun, juga akan tersedia opsi untuk memilih *role* yang ingin dipilih yaitu pelaku UMKM, konsumen UMKM, ataupun investor UMKM. 
+
+- Daftar lokasi dan detail deskripsi/profil UMKM -  **Ahmadhi Prananta Hastiputra**
+
+Modul ini akan menampilkan lokasi setiap UMKM serta deskripsi mengenai sektor usaha dari setiap UMKM yang terdaftar pada GoUMKM
+
+- Dashboard laporan penjualan UMKM (untuk pihak investor) -  **Sania Rizqi Maharani**
+
+Dashboard laporan penjualan akan menampilkan laporan penjualan dari setiap UMKM sehingga investor dapat memantau tingkat perkembangan penjualan dari setiap UMKM. Laporan penjulana GoUMKM hanya dapat diperbarui oleh UMKM yang bersangkutan. 
+
+- Berita UMKM - **Shafa Aleyda Tsabitah**
+
+Berita UMKM akan menampilkan berita yang bersangkutan dengan perkembangan UMKM di Indonesia serta menambah komentar pada laman yang memuat berita tertentu. 
+
+- Review/rating UMKM (dari konsumen) -  **Ihza Dafa Maulidan**
+
+Review atau rating UMKM akan menampilkan review dan rating UMKM yang terdaftar pada GoUMKM, selain itu user juga dapat menambahkan atau memasukkan review dan ratingnya masing-masing pada UMKM.
 
 ### :link: Alur pengintegrasian dengan web service untuk terhubung dengan aplikasi web yang sudah dibuat saat Proyek Tengah Semester.
 1. Untuk membuat akses data-nya terintegrasi dengan data pada web yang sebelumnya, kelompok kami membuat REST API pada Django yang isinya data pada web sebelumnya  untuk diakses oleh mobile app flutter.
