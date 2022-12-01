@@ -1,0 +1,66 @@
+{
+  "data": [
+    {
+      "fields": {
+        "nama_umkm" : "Jaya abadi",
+        "logo": "assets/logo_umkm.png",
+        "deskripsi": "Bersama yang bertujuan mengedukasi masyarakat untuk meningkatkan literasi dan juga inklusi keuangan serta pemberdayaan UMKM.",
+        "umkm": 1,
+        "rating" : 3
+      }
+    },
+    {
+      "fields": {
+        "nama_umkm" : "Cahaya sinar",
+        "logo": "assets/logo_umkm.png",
+        "deskripsi": "Bersama yang bertujuan mengedukasi masyarakat untuk meningkatkan literasi dan juga inklusi keuangan serta pemberdayaan UMKM.",
+        "umkm": 2,
+        "rating" : 5
+      }
+    },
+    {
+      "fields": {
+        "nama_umkm" : "Sepatuqu",
+        "logo": "assets/logo_umkm.png",
+        "deskripsi": "Bersama yang bertujuan mengedukasi masyarakat untuk meningkatkan literasi dan juga inklusi keuangan serta pemberdayaan UMKM.",
+        "umkm": 3,
+        "rating" : 4
+      }
+    },{
+      "fields": {
+        "nama_umkm" : "Eskrim mol",
+        "logo": "assets/logo_umkm.png",
+        "deskripsi": "Bersama yang bertujuan mengedukasi masyarakat untuk meningkatkan literasi dan juga inklusi keuangan serta pemberdayaan UMKM.",
+        "umkm": 4,
+        "rating" : 4
+      }
+    }
+    ,{
+      "fields": {
+        "nama_umkm" : "Jaya abadi",
+        "logo": "assets/logo_umkm.png",
+        "deskripsi": "Bersama yang bertujuan mengedukasi masyarakat untuk meningkatkan literasi dan juga inklusi keuangan serta pemberdayaan UMKM.",
+        "umkm": 5,
+        "rating" : 3
+      }
+    },
+    {
+      "fields": {
+        "nama_umkm" : "Ayamku",
+        "logo": "assets/logo_umkm.png",
+        "deskripsi": "Bersama yang bertujuan mengedukasi masyarakat untuk meningkatkan literasi dan juga inklusi keuangan serta pemberdayaan UMKM.",
+        "umkm": 1,
+        "rating" : 5
+      }
+    },
+    {
+      "fields": {
+        "nama_umkm" : "Jaya Cahaya",
+        "logo": "assets/logo_umkm.png",
+        "deskripsi": "Bersama yang bertujuan mengedukasi masyarakat untuk meningkatkan literasi dan juga inklusi keuangan serta pemberdayaan UMKM.",
+        "umkm": 1,
+        "rating" : 4
+      }
+    }
+  ]
+}
