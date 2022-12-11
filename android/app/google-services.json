@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "245057466170",
+    "project_id": "goumkm-ff269",
+    "storage_bucket": "goumkm-ff269.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245057466170:android:a2ad65d4925145ecff2a03",
+        "android_client_info": {
+          "package_name": "com.example.goumkm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245057466170-3r0m38fa6fmorlbinr79ej2jc901uvhv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoTJcXw9JEUTUoR0FNh2vY3SiKvbzPZg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "245057466170-3r0m38fa6fmorlbinr79ej2jc901uvhv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
