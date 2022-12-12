@@ -1,13 +1,46 @@
+import 'dart:convert' as convert;
 import 'package:flutter/material.dart';
 import 'package:goumkm/widgets/input_field.dart';
 import 'package:goumkm/theme.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:goumkm/widgets/toast.dart';
 
-class ProfilUmkmForm extends StatelessWidget {
+class ProfilUmkmForm extends StatefulWidget {
   const ProfilUmkmForm({super.key});
 
   @override
+  State<ProfilUmkmForm> createState() => _ProfilUmkmFormState();
+}
+
+class _ProfilUmkmFormState extends State<ProfilUmkmForm> {
+  final formKey = GlobalKey<FormState>();
+  final urlRequest = "https://pbpf01-midterm.up.railway.app/profile-umkm/add/";
+
+  final namaUMKMController = TextEditingController();
+  final noTeleponontroller = TextEditingController();
+  final emailController = TextEditingController();
+  final kontakController = TextEditingController();
+  final kotaController = TextEditingController();
+  final provinsiController = TextEditingController();
+  final kodeposController = TextEditingController();
+  final urlFotoController = TextEditingController();
+
+  void clear() {
+    // Clean up the controller when the widget is disposed.
+    namaUMKMController.clear();
+    noTeleponontroller.clear();
+    emailController.clear();
+    kontakController.clear();
+    kotaController.clear();
+    provinsiController.clear();
+    kodeposController.clear();
+    urlFotoController.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
+    var request = context.read<CookieRequest>();
 
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 65.0),
@@ -25,25 +58,40 @@ class ProfilUmkmForm extends StatelessWidget {
                     child: Form(
                       key: formKey,
                       child: Column(
-                        children: const <Widget>[
+                        children: <Widget>[
                           InputField(
-                              text: "Nama UMKM", inputType: TextInputType.text),
+                            text: "Nama UMKM",
+                            inputType: TextInputType.text,
+                            controller: namaUMKMController,
+                          ),
                           InputField(
                               text: "No. Telp",
-                              inputType: TextInputType.number),
+                              inputType: TextInputType.number,
+                              controller: noTeleponontroller),
                           InputField(
                               text: "Email",
-                              inputType: TextInputType.emailAddress),
+                              inputType: TextInputType.emailAddress,
+                              controller: emailController),
                           InputField(
-                              text: "Kontak", inputType: TextInputType.text),
+                              text: "Kontak",
+                              inputType: TextInputType.text,
+                              controller: kontakController),
                           InputField(
-                              text: "Kota", inputType: TextInputType.text),
+                              text: "Kota",
+                              inputType: TextInputType.text,
+                              controller: kotaController),
                           InputField(
-                              text: "Provinsi", inputType: TextInputType.text),
+                              text: "Provinsi",
+                              inputType: TextInputType.text,
+                              controller: provinsiController),
                           InputField(
-                              text: "Kodepos", inputType: TextInputType.number),
+                              text: "Kodepos",
+                              inputType: TextInputType.number,
+                              controller: kodeposController),
                           InputField(
-                              text: "URL Foto", inputType: TextInputType.text),
+                              text: "URL Foto",
+                              inputType: TextInputType.text,
+                              controller: urlFotoController),
                         ],
                       ),
                     ),
@@ -55,40 +103,48 @@ class ProfilUmkmForm extends StatelessWidget {
                         ),
                         child: const Text("Add"),
                         onPressed: () async {
+                          var data = convert.jsonEncode(
+                            <String, String?>{
+                              'nama': namaUMKMController.text,
+                              'no_telepon': noTeleponontroller.text,
+                              'email': emailController.text,
+                              'kontak': kontakController.text,
+                              'kota': kotaController.text,
+                              'provinsi': provinsiController.text,
+                              'kodepos': kodeposController.text,
+                              'foto': urlFotoController.text
+                            },
+                          );
+
                           if (formKey.currentState!.validate()) {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return Dialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  elevation: 15,
-                                  child: ListView(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0,
-                                      vertical: 16.0,
-                                    ),
-                                    shrinkWrap: true,
-                                    children: [
-                                      const Center(
-                                        child: Text(
-                                          "Berhasil menambahkan Profil UMKM!",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('Kembali'),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-                            formKey.currentState!.reset();
+                            if (request.jsonData['user_data'] != null &&
+                                request.jsonData['user_data']['role'] == 'P') {
+                              await request
+                                  .post(urlRequest, data)
+                                  .then((response) => {
+                                        if (response['status'])
+                                          {
+                                            clear(),
+                                            Navigator.of(context).pop(),
+                                            toast(context, false,
+                                                response['message']),
+                                            // formKey.currentState!.reset(),
+                                          }
+                                        else
+                                          {
+                                            Navigator.of(context).pop(),
+                                            toast(context, true,
+                                                response['message'])
+                                          }
+                                      });
+                            } else {
+                              Navigator.of(context).pop();
+                              toast(context, true,
+                                  "Anda bukan sebagai Pemilik UMKM atau belum login!");
+                            }
+                          } else {
+                            Navigator.of(context).pop();
+                            toast(context, true, "Input tidak valid!");
                           }
                         }),
                   ],
