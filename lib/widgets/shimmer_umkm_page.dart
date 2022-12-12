@@ -1,15 +1,6 @@
 
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:goumkm/models/review_umkm_model_new.dart';
-import 'package:goumkm/models/umkm_model.dart';
-import 'package:goumkm/pages/review_umkm/detail_review_umkm_page.dart';
-import 'package:goumkm/widgets/rating_item.dart';
-
-import '../theme.dart';
-import '../utils/provider.dart';
 
 class ShimmerUmkmCard extends StatelessWidget{
 
