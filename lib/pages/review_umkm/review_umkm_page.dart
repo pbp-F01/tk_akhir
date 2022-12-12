@@ -44,7 +44,6 @@ class _ReviewUmkmPageState extends State<ReviewUmkmPage> {
                   future: getDataUmkm(),
                   builder: (context, snapshot){
                     if(snapshot.hasData) {
-
                       return ListView.builder(
                           scrollDirection: Axis.vertical,
                           itemCount: snapshot.data!.length,
