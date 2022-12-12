@@ -45,6 +45,9 @@ class GoUmkmProvider {
     );
     print(result);
     if(result['status'] = true){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Review berhasil ditambahkan"),
+      ));
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
     }
   }
