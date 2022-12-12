@@ -11,7 +11,7 @@ List<FieldsComments> listCommentModel = [];
 //final ScrollController _firstController = ScrollController();
 
 class CommentCard extends StatefulWidget {
-  final int indexBerita;
+  final int? indexBerita;
   
   const CommentCard({Key? key, required this.indexBerita,}) : super(key: key);
   @override
@@ -30,14 +30,16 @@ class _CommentCardState extends State<CommentCard> {
       },
     );
 
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
     listCommentModel.clear(); 
+    // melakukan decode response menjadi bentuk json
+    var data = jsonDecode(utf8.decode(response.bodyBytes));
 
+    // melakukan konversi data json menjadi object ToDo
     for (var d in data) {
-      if (d != null && CommentModel.fromJson(d).fieldsComments!.news == widget.indexBerita) {
-        listCommentModel.add(CommentModel.fromJson(d).fieldsComments!);
-        }
+    if (d != null && CommentModel.fromJson(d).fieldsComments!.news == widget.indexBerita) {
+      listCommentModel.add(CommentModel.fromJson(d).fieldsComments!);
       }
+    }
     return listCommentModel;
   }
 
