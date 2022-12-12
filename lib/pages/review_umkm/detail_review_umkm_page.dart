@@ -1,15 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:goumkm/db/review_umkm_database.dart';
 import 'package:goumkm/models/review_umkm_model.dart';
 import 'package:goumkm/models/umkm_model.dart';
 import 'package:goumkm/theme.dart';
 import 'package:goumkm/widgets/review_umkm_card.dart';
-import 'package:goumkm/widgets/shimmer_review_card.dart';
-import 'package:shimmer/shimmer.dart';
 
-import '../../models/review_umkm_model_new.dart';
 class DetailReviewUmkmPage extends StatefulWidget {
   const DetailReviewUmkmPage({Key? key, required this.listReviewUmkm, required this.umkmModel, required this.rating}) : super(key: key);
   final List<ReviewUmkmModel> listReviewUmkm;
@@ -20,7 +16,6 @@ class DetailReviewUmkmPage extends StatefulWidget {
 }
 
 class _DetailReviewUmkmPageState extends State<DetailReviewUmkmPage> {
-  List<ReviewUmkm> reviewUmkm=[];
 
   @override
   void initState() {
