@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:goumkm/models/review_umkm_model_new.dart';
+import 'package:goumkm/models/review_umkm_model.dart';
 import 'package:goumkm/models/umkm_model.dart';
 import 'package:goumkm/theme.dart';
-import 'package:goumkm/widgets/shimmer_umkm_page.dart';
+import 'package:goumkm/widgets/shimmer_umkm_card.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
-
-import '../../models/review_umkm_model.dart';
 import '../../utils/provider.dart';
-import '../../widgets/review_umkm_card.dart';
 import '../../widgets/umkm_card.dart';
 class ReviewUmkmPage extends StatefulWidget {
   const ReviewUmkmPage({Key? key}) : super(key: key);
@@ -18,7 +18,10 @@ class ReviewUmkmPage extends StatefulWidget {
 }
 
 class _ReviewUmkmPageState extends State<ReviewUmkmPage> {
-  List<ReviewUmkmModelNew> listReview=[];
+  List<ReviewUmkmModel> listReview=[];
+  List<UmkmModel> listUmkm=[];
+  late String role;
+  var request;
   @override
   void initState() {
     super.initState();
@@ -26,6 +29,7 @@ class _ReviewUmkmPageState extends State<ReviewUmkmPage> {
 
   @override
   Widget build(BuildContext context) {
+    request = context.watch<CookieRequest>();
     return SafeArea(
         bottom: false,
         child: Padding(
@@ -33,7 +37,7 @@ class _ReviewUmkmPageState extends State<ReviewUmkmPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("GoUMKM - Review UMKM",style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold,color: Colors.black),),
+              Text("GoUMKM - Review UMKM",style: blackTextStyle.copyWith(fontSize: 20.sp,fontWeight: FontWeight.bold),),
               SizedBox(height: 20.h,),
               Expanded(
                 child: FutureBuilder<List<UmkmModel>>(
@@ -45,12 +49,18 @@ class _ReviewUmkmPageState extends State<ReviewUmkmPage> {
                           scrollDirection: Axis.vertical,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (BuildContext context, int index) {
+                            double rating;
                             double sum=0;
                             for (int i = 0; i < listReview.where((id) => id.fields!.umkm==snapshot.data![index].pk).length; i++){
                               sum += listReview.where((id) => id.fields!.umkm==snapshot.data![index].pk).toList()[i].fields!.rating!;
                             }
                             UmkmModel list=snapshot.data![index];
-                            return UmkmCard(umkmModel: list, rating: sum/listReview.where((id) => id.fields!.umkm==snapshot.data![index].pk).length, index: index, lastIndex: snapshot.data!.length,);
+                            if(sum==0){
+                              rating=0;
+                            }else{
+                              rating=sum/listReview.where((id) => id.fields!.umkm==snapshot.data![index].pk).length;
+                            }
+                            return UmkmCard(umkmModel: list, rating: rating, index: index, lastIndex: snapshot.data!.length, role: role,);
                             });
                     }else{
                       return Shimmer.fromColors(
@@ -72,7 +82,13 @@ class _ReviewUmkmPageState extends State<ReviewUmkmPage> {
     );
   }
   Future<List<UmkmModel>>getDataUmkm() async{
-    List<UmkmModel> listUmkm=[];
+    final prefs = await SharedPreferences.getInstance();
+    if(request.loggedIn){
+      role=prefs.getString("role")!;
+    }else{
+      role="";
+    }
+
     var jsonMap =await GoUmkmProvider().getUmkm();
     for(int i=0; i <jsonMap.length;i++){
       UmkmModel umkmModel = UmkmModel.fromJson(jsonMap[i]);
@@ -80,9 +96,10 @@ class _ReviewUmkmPageState extends State<ReviewUmkmPage> {
     }
     var jsonMap2 =await GoUmkmProvider().getReviewUMKM();
     for(int i=0; i <jsonMap2.length;i++) {
-      ReviewUmkmModelNew reviewUmkmModelNew = ReviewUmkmModelNew.fromJson(jsonMap2[i]);
+      ReviewUmkmModel reviewUmkmModelNew = ReviewUmkmModel.fromJson(jsonMap2[i]);
       listReview.add(reviewUmkmModelNew);
     }
     return listUmkm;
   }
 }
+
