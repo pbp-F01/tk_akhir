@@ -1,19 +1,13 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:goumkm/pages/home_page.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
-import 'package:flutter/services.dart' as root_budle;
-
-import '../models/review_umkm_model.dart';
 
 class GoUmkmProvider {
 
   String rootUrlDev='https://pbpf01-midterm.up.railway.app';
 
  getReviewUMKM() async {
-    // final jsonData =
-    // await root_budle.rootBundle.loadString('assets/umkm.json');
-    // final list = json.decode(jsonData) as Map<String, dynamic>;
-    // return ReviewUmkmModel.fromJson(list);
     Uri uri= Uri.parse('$rootUrlDev/reviewUMKM/json/');
     var result =await http.get(
       uri,
@@ -40,6 +34,18 @@ class GoUmkmProvider {
       var jsonString = result.body;
       var jsonMap = json.decode(jsonString);
       return jsonMap;
+    }
+  }
+  addReview(BuildContext context,var request,String rating,String comment,String idUmkm) async{
+    var result = await request.post("https://pbpf01-midterm.up.railway.app/reviewUMKM/rate_flutter/$idUmkm", {
+      'rating': rating,
+      'comment':comment,
+    },
+
+    );
+    print(result);
+    if(result['status'] = true){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
     }
   }
 }
