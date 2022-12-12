@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,6 +17,8 @@ class _LoginPageState extends State<LoginPage> {
   String username = "";
   String password1 = "";
   String statusMessage = "";
+  String role = "";
+  late int idUser;
 
   void _initLogin(request) async {
     final response = await request
@@ -26,15 +29,20 @@ class _LoginPageState extends State<LoginPage> {
       final newValue = new Map<String, dynamic>.from(value);
 
       setState(() {
-        if (newValue['message'].toString() ==
-            "Failed to Login, Account Disabled.") {
-          statusMessage = "Invalid username/password!";
-        } else
+        if (newValue['status'] == true) {
           statusMessage = newValue['message'].toString();
+          role = newValue['user_data']['role'].toString();
+          idUser = newValue['user_data']['id'];
+        } else {
+          statusMessage = newValue['message'].toString();
+        }
       });
     });
 
     if (request.loggedIn) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('role', role);
+      await prefs.setInt('idUser', idUser);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Login success!"),
       ));
