@@ -1,13 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:goumkm/models/review_umkm_model_new.dart';
+import 'package:goumkm/db/review_umkm_database.dart';
+import 'package:goumkm/models/review_umkm_model.dart';
 import 'package:goumkm/models/umkm_model.dart';
 import 'package:goumkm/theme.dart';
 import 'package:goumkm/widgets/review_umkm_card.dart';
+import 'package:goumkm/widgets/shimmer_review_card.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../models/review_umkm_model_new.dart';
 class DetailReviewUmkmPage extends StatefulWidget {
   const DetailReviewUmkmPage({Key? key, required this.listReviewUmkm, required this.umkmModel, required this.rating}) : super(key: key);
-  final List<ReviewUmkmModelNew> listReviewUmkm;
+  final List<ReviewUmkmModel> listReviewUmkm;
   final UmkmModel umkmModel;
   final String rating;
   @override
@@ -15,6 +20,7 @@ class DetailReviewUmkmPage extends StatefulWidget {
 }
 
 class _DetailReviewUmkmPageState extends State<DetailReviewUmkmPage> {
+  List<ReviewUmkm> reviewUmkm=[];
 
   @override
   void initState() {
@@ -54,46 +60,50 @@ class _DetailReviewUmkmPageState extends State<DetailReviewUmkmPage> {
                   left: 20.w,
                   child: Text(
                     widget.umkmModel.fields!.nama!,
-                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.sp,color: Colors.white),
+                    style: whiteTextStyle.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.sp,)
                   ),
                 ),
               ]),
               SizedBox(height: 30.h,),
               Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${widget.listReviewUmkm.length} Review",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.sp,),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      margin: EdgeInsets.only(top: 20.h),
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: widget.listReviewUmkm.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            margin: EdgeInsets.only(bottom: 8.h),
-                            padding: EdgeInsets.all(10.h.w),
-                            decoration: BoxDecoration(
-                              color: whiteLightColor,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8.r),
+                padding: const EdgeInsets.all(8.0),
+                child: Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                "${widget.listReviewUmkm.length} Review",
+                                style: blackTextStyle.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.sp,)
+                            ),
+                            Container(
+                              height: MediaQuery.of(context).size.height,
+                              margin: EdgeInsets.only(top: 20.h),
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount: widget.listReviewUmkm.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                      margin: EdgeInsets.only(bottom: 8.h),
+                                      padding: EdgeInsets.all(10.h.w),
+                                      decoration: BoxDecoration(
+                                        color: whiteLightColor,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8.r),
+                                        ),
+                                      ),
+                                      child: ReviewUmkmCard(reviewUMKM: widget.listReviewUmkm[index],)
+                                  );
+                                },
                               ),
                             ),
-                            child: ReviewUmkmCard(reviewUMKM: widget.listReviewUmkm[index],)
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                          ],
+                        ),
+                      )
               )
             ],
           ),
@@ -126,7 +136,7 @@ class _DetailReviewUmkmPageState extends State<DetailReviewUmkmPage> {
                       children: [
                         Text(
                           "Pemilik",
-                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.sp,color: Colors.black),
+                          style: blackTextStyle.copyWith(fontWeight: FontWeight.bold,fontSize: 16.sp)
                         ),
                         SizedBox(height: 5.h),
                         Row(
@@ -139,7 +149,7 @@ class _DetailReviewUmkmPageState extends State<DetailReviewUmkmPage> {
                                 widget.umkmModel.fields!.pemilik!,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12.sp,color: Colors.black),
+                                style: blackTextStyle.copyWith(fontWeight: FontWeight.bold,fontSize: 12.sp),
                               ),
                             ),
                           ],
@@ -156,7 +166,7 @@ class _DetailReviewUmkmPageState extends State<DetailReviewUmkmPage> {
                       children: [
                         Text(
                           "Rating",
-                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.sp,color: Colors.black),
+                          style: blackTextStyle.copyWith(fontWeight: FontWeight.bold,fontSize: 16.sp),
                         ),
                         SizedBox(height: 5.h),
                         Row(
@@ -166,7 +176,7 @@ class _DetailReviewUmkmPageState extends State<DetailReviewUmkmPage> {
                             SizedBox(width: 5.w),
                             Text(
                               widget.rating,
-                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12.sp,color: greenColor),
+                              style: greenTextStyle.copyWith(fontWeight: FontWeight.bold,fontSize: 12.sp),
                             ),
                           ],
                         ),
