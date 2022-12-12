@@ -4,6 +4,10 @@
 
 [![Build & upload to Firebase App Distribution](https://github.com/pbp-F01/tk_akhir/actions/workflows/main.yml/badge.svg)](https://github.com/pbp-F01/tk_akhir/actions/workflows/main.yml)[![Release](https://github.com/pbp-F01/tk_akhir/actions/workflows/release.yml/badge.svg)](https://github.com/pbp-F01/tk_akhir/actions/workflows/release.yml)
 
+## Tautan APK
+
+Proyek ini dapat diunduh [disini](https://github.com/pbp-F01/tk_akhir/releases/download/1.0.0%2B1/app.apk)
+
 ### Nama Anggota Kelompok
 
     1. Ihza Dafa Maulidan - 2106652726
