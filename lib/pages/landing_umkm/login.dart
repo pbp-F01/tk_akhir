@@ -14,10 +14,10 @@ class _LoginPageState extends State<LoginPage> {
   final _loginFormKey = GlobalKey<FormState>();
   Color buttonColor = Color.fromARGB(156, 57, 81, 68);
 
-  String username = "";
+  static String username = "";
   String password1 = "";
-  String statusMessage = "";
-  String role = "";
+  static String statusMessage = "";
+  static String role = "";
   late int idUser;
 
   void _initLogin(request) async {
@@ -53,10 +53,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    // The rest of your widgets are down below
-    // 'username' and 'password' should be the values of the user login form.
-
     return Scaffold(
+        backgroundColor: Color.fromARGB(156, 57, 81, 68),
         resizeToAvoidBottomInset: false,
         body: (request.loggedIn == false)
             ? Center(
@@ -67,8 +65,8 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Image.asset(
                         "assets/logogoumkm.png",
-                        height: 70,
-                        width: 70,
+                        height: 50,
+                        width: 400,
                       ),
                       Form(
                         key: _loginFormKey,
@@ -96,6 +94,8 @@ class _LoginPageState extends State<LoginPage> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextFormField(
                                     decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
                                       labelText: "Username ",
                                       contentPadding: EdgeInsets.symmetric(
                                           vertical: 12, horizontal: 12),
@@ -132,6 +132,8 @@ class _LoginPageState extends State<LoginPage> {
                                   child: TextFormField(
                                     obscureText: true,
                                     decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
                                       labelText: "Password ",
                                       contentPadding: EdgeInsets.symmetric(
                                           vertical: 12, horizontal: 12),
@@ -199,7 +201,7 @@ class _LoginPageState extends State<LoginPage> {
                                     },
                                     child: Text(
                                       "Don't have an account yet? Sign up",
-                                      style: TextStyle(color: buttonColor),
+                                      style: TextStyle(color: Colors.white),
                                     ))
                               ]),
                         )),
@@ -208,14 +210,24 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               )
-            : Center(
-                child: ElevatedButton(
-                  child: Text("Logout"),
-                  onPressed: () async {
-                    await request.logout(
-                        "https://pbpf01-midterm.up.railway.app/authentication/logout");
-                    setState(() {});
-                  },
+            : Container(
+                child: Center(
+                  child: Column(
+                    children: [
+                      Text("Logged in as ${username}"),
+                      Text((role == "K"
+                          ? "Konsumen"
+                          : (role == "I" ? "Investor" : "Pemilik"))),
+                      ElevatedButton(
+                        child: Text("Logout"),
+                        onPressed: () async {
+                          await request.logout(
+                              "https://pbpf01-midterm.up.railway.app/authentication/logout");
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ));
   }

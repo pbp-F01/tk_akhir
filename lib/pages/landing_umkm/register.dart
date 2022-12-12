@@ -74,11 +74,6 @@ class _RegisterPageState extends State<Register> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                Image.asset(
-                  "assets/logogoumkm.png",
-                  height: 70,
-                  width: 70,
-                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -99,6 +94,8 @@ class _RegisterPageState extends State<Register> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
                           labelText: "Username",
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 12, horizontal: 12),
