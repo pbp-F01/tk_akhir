@@ -6,7 +6,7 @@ Color whiteColor = const Color(0xffFFFFFF);
 Color greenColor=const Color(0xFF4E6C50);
 Color darkGreenColor=const Color(0xFF395144);
 Color whiteLightColor=const Color(0xFFF0EBCE);
-
+Color greyLightColor = const Color(0xFFD9D9D9);
 
 TextStyle blackTextStyle = GoogleFonts.inter(
   fontWeight: FontWeight.w500,
