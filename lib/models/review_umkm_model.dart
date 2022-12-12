@@ -1,38 +1,21 @@
 class ReviewUmkmModel {
-  List<Data>? data;
-
-  ReviewUmkmModel({this.data});
-
-  ReviewUmkmModel.fromJson(Map<String, dynamic> json) {
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Data {
+  String? model;
+  int? pk;
   Fields? fields;
 
-  Data({this.fields});
+  ReviewUmkmModel({this.model, this.pk, this.fields});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  ReviewUmkmModel.fromJson(Map<String, dynamic> json) {
+    model = json['model'];
+    pk = json['pk'];
     fields =
     json['fields'] != null ? new Fields.fromJson(json['fields']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['model'] = this.model;
+    data['pk'] = this.pk;
     if (this.fields != null) {
       data['fields'] = this.fields!.toJson();
     }
@@ -41,29 +24,29 @@ class Data {
 }
 
 class Fields {
-  String? namaUmkm;
-  String? logo;
-  String? deskripsi;
-  int? umkm;
+  int? author;
+  String? reviewDate;
   int? rating;
+  String? comment;
+  int? umkm;
 
-  Fields({this.namaUmkm, this.logo, this.deskripsi, this.umkm, this.rating});
+  Fields({this.author, this.reviewDate, this.rating, this.comment, this.umkm});
 
   Fields.fromJson(Map<String, dynamic> json) {
-    namaUmkm = json['nama_umkm'];
-    logo = json['logo'];
-    deskripsi = json['deskripsi'];
-    umkm = json['umkm'];
+    author = json['author'];
+    reviewDate = json['review_date'];
     rating = json['rating'];
+    comment = json['comment'];
+    umkm = json['umkm'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nama_umkm'] = this.namaUmkm;
-    data['logo'] = this.logo;
-    data['deskripsi'] = this.deskripsi;
-    data['umkm'] = this.umkm;
+    data['author'] = this.author;
+    data['review_date'] = this.reviewDate;
     data['rating'] = this.rating;
+    data['comment'] = this.comment;
+    data['umkm'] = this.umkm;
     return data;
   }
 }
