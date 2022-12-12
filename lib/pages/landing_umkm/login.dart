@@ -201,7 +201,14 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               )
             : Center(
-                child: CircularProgressIndicator(),
+                child: ElevatedButton(
+                  child: Text("Logout"),
+                  onPressed: () async {
+                    await request.logout(
+                        "https://pbpf01-midterm.up.railway.app/authentication/logout");
+                    setState(() {});
+                  },
+                ),
               ));
   }
 }
