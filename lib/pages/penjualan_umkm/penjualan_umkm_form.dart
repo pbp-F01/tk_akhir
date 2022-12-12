@@ -27,7 +27,9 @@ class PenjualanUMKMForm extends StatelessWidget {
                       child: Column(
                         children: const <Widget>[
                           InputField(
-                              text: "Nama UMKM", inputType: TextInputType.text),
+                            text: "Nama UMKM",
+                            inputType: TextInputType.text,
+                          ),
                           InputField(
                               text: "Tanggal",
                               inputType: TextInputType.datetime),
