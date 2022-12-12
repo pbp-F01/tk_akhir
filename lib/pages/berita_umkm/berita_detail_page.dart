@@ -10,7 +10,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
 List<CommentModel> listCommentModel = [];
-String _newComment = ""; 
+
 
 class BeritaDetail extends StatefulWidget {
   BeritaDetail(this.data, this.indexBerita, {Key? key}) : super(key: key);
@@ -44,8 +44,22 @@ class BeritaDetail extends StatefulWidget {
 }
 
 class _BeritaDetailState extends State<BeritaDetail> {
-  final _formKey = GlobalKey<FormState>();
-  
+  static String role = ""; 
+  static String username = "";
+  static String _newComment = ""; 
+
+  void _initLogin(request) async{
+    final response = await request.login("https://pbpf01-midterm.up.railway.app/authentication/login", {
+      'username' : username, 
+    }).then((value) {
+      final newValue = new Map<String, dynamic>.from(value); 
+      setState(() {
+        if (newValue['status'] == true){
+          role = newValue['user_data']['role'].toString();
+        }
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final request = context.read<CookieRequest>();
@@ -101,122 +115,125 @@ class _BeritaDetailState extends State<BeritaDetail> {
                 const Divider(color: Colors.black45,
                 ),
                 //Comment 
-                CommentCard(indexBerita: widget.indexBerita!), 
+                CommentCard(indexBerita: widget.data.pk!), 
               ],
             ),
             
         ), 
       ),
+      
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        backgroundColor: Colors.lightGreen.shade800,
-        onPressed: () {
-          showModalBottomSheet(
-          context: context,
-          builder: (builder) {
-              return Container(
-                color: Colors.transparent,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white, 
-                    borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(3.0), 
-                      topRight: const Radius.circular(3.0), 
-                    ), 
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26, 
-                        blurRadius: 10.0,
-                        spreadRadius: 0.0,
-                      )
-                    ]
-                  ),
-                  alignment: Alignment.topLeft,
-                  child: Column(
-                    children: [
-                      Column(
+            child: Icon(Icons.add),
+            backgroundColor: Colors.lightGreen.shade800,
+            onPressed: () {
+              showModalBottomSheet(
+              context: context,
+              builder: (builder) {
+                  return Container(
+                    color: Colors.transparent,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white, 
+                        borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(3.0), 
+                          topRight: const Radius.circular(3.0), 
+                        ), 
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26, 
+                            blurRadius: 10.0,
+                            spreadRadius: 0.0,
+                          )
+                        ]
+                      ),
+                      alignment: Alignment.topLeft,
+                      child: Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Column(
                             children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 5, left: 10),
-                                child: Text("Add comment",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold, 
-                                ),),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 5, right: 5), 
-                                child: TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  }, 
-                                  child: Text(
-                                    "Back", 
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5, left: 10),
+                                    child: Text("Add comment",
                                     style: TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.bold, 
+                                    ),),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5, right: 5), 
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      }, 
+                                      child: Text(
+                                        "Back", 
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )
                                     ),
-                                  )
+                                  ), 
+                                ],
+                              ),
+                              //Form 
+                              Container(
+                                margin: EdgeInsets.only(left: 10, right: 10),
+                                child: Column(
+                                  children: [
+                                    TextFormField(
+                                      decoration: 
+                                      InputDecoration(
+                                        labelText: 'Comments',
+                                      ),
+                                      onChanged: (String? value){
+                                        setState(() {
+                                          _newComment = value!; 
+                                        });
+                                      },
+                                      onSaved: (String? value){
+                                        setState(() {
+                                          _newComment = value!;
+                                        });
+                                      },
+                                    ),
+                                    Column(
+                                      children: [
+                                      TextButton(
+                                          child: Text(
+                                            "Save", 
+                                            style: TextStyle(color: Colors.black),
+                                          ),
+                                          onPressed: ()  async {
+                                            print(_newComment); 
+                                            print(widget.indexBerita.toString());
+                                            final response = await request.post("https://pbpf01-midterm.up.railway.app/berita/addComment_flutter/", 
+                                              {
+                                                'comments_substance': _newComment, 
+                                                'news_index': widget.indexBerita.toString(),
+                                              }
+                                            ); 
+                                            print(response);
+                                          }, 
+                                          
+                                        ),
+                                      ],
+                                    ), 
+                                  ],
                                 ),
                               ), 
                             ],
-                          ),
-                          //Form 
-                          Container(
-                            margin: EdgeInsets.only(left: 10, right: 10),
-                            child: Column(
-                              children: [
-                                TextFormField(
-                                  decoration: 
-                                  InputDecoration(
-                                    labelText: 'Comments',
-                                  ),
-                                  onChanged: (String? value){
-                                    setState(() {
-                                      _newComment = value!; 
-                                    });
-                                  },
-                                  onSaved: (String? value){
-                                    setState(() {
-                                      _newComment = value!;
-                                    });
-                                  },
-                                ),
-                                Column(
-                                  children: [
-                                  TextButton(
-                                      child: Text(
-                                        "Save", 
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                      onPressed: ()  async {
-                                        print(_newComment); 
-                                        final response = await request.post("https://pbpf01-midterm.up.railway.app/berita/addComment_flutter/", 
-                                          {
-                                            'comments_substance': _newComment, 
-                                            'news_index': widget.indexBerita.toString(),
-                                          }
-                                        ); 
-                                        print(response);
-                                      }, 
-                                      
-                                    ),
-                                  ],
-                                ), 
-                              ],
-                            ),
-                          ), 
+                          )
                         ],
-                      )
-                    ],
-                  ),
-                ),
+                      ),
+                    ),
+                  );
+                }
               );
-            }
-          );
-        } 
-      ), 
+            } 
+          ),
+        
     );
   }
 }

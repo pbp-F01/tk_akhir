@@ -94,54 +94,11 @@ class BeritaUmkmPage extends StatelessWidget {
                             height: 20.0,
                           ), 
                           Column(
-                            children: 
-                            listNewsModelCarousel.map((e) => BeritaList(e)).toList(), 
+                            children: listNewsModelCarousel.map((e) => BeritaList(e)).toList(), 
                           ),
                           SizedBox(
                             height: 35.0,
                           )
-                          // Scrollbar(
-                          //   controller: _firstController,
-                          //   thumbVisibility: true,
-                          //   child: ListView.builder(
-                          //     controller: _firstController,
-                          //     scrollDirection: Axis.vertical,
-                          //     shrinkWrap: true,
-                          //     itemCount: snapshot.data!.length,
-                          //     itemBuilder: (_, index)=> Container(
-                          //       margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
-                          //       padding: const EdgeInsets.all(10.0),
-                          //       decoration: BoxDecoration(
-                          //           color:Colors.white,
-                          //           borderRadius: BorderRadius.circular(3.0),
-                          //           image: DecorationImage(
-                          //             image: NetworkImage(snapshot.data![index].fields.newsImage), 
-                          //             fit: BoxFit.fitHeight,  
-                          //             alignment: Alignment.centerLeft,
-                          //           ),
-                          //           boxShadow: const [
-                          //             BoxShadow(
-                          //                 color: Colors.transparent,
-                          //                 blurRadius: 2.0,
-                          //             ), 
-                          //           ]
-                          //         ),
-
-                          //       child: Column(
-                          //         mainAxisAlignment: MainAxisAlignment.start,
-                          //         crossAxisAlignment: CrossAxisAlignment.start,
-                          //         children: [
-                          //           SizedBox(
-                          //             height: 10.0,
-                          //           ),
-                          //           Text(
-                          //             "${snapshot.data![index].fields.newsTitle}"
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     ), 
-                          //   ),
-                          // ), 
                         ],
                       );
                     }
