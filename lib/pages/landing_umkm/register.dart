@@ -41,7 +41,7 @@ class _RegisterPageState extends State<Register> {
 
     final response = await request.postJson(
         "https://pbpf01-midterm.up.railway.app/authentication/register", data);
-
+    request.loggedIn = false;
     if (response['status'] == 'success') {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Account has been successfully registered!"),
