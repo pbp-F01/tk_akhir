@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goumkm/models/review_umkm_model.dart';
 import 'package:goumkm/models/umkm_model.dart';
 import 'package:goumkm/theme.dart';
-import 'package:goumkm/widgets/shimmer_umkm_card.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../utils/provider.dart';
+import '../../widgets/shimmer_umkm_page.dart';
 import '../../widgets/umkm_card.dart';
 class ReviewUmkmPage extends StatefulWidget {
   const ReviewUmkmPage({Key? key}) : super(key: key);
