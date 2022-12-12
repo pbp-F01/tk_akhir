@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:goumkm/models/review_umkm_model_new.dart';
+import 'package:goumkm/models/review_umkm_model.dart';
 import 'package:goumkm/widgets/rating_item.dart';
 import 'package:intl/intl.dart';
-
-import '../models/review_umkm_model.dart';
 import '../theme.dart';
 
 class ReviewUmkmCard extends StatefulWidget{
 
-  final ReviewUmkmModelNew reviewUMKM;
+  final ReviewUmkmModel reviewUMKM;
   const ReviewUmkmCard({Key? key, required this.reviewUMKM,}) : super(key: key);
 
   @override
@@ -37,40 +35,33 @@ class _ReviewUmkmCardState extends State<ReviewUmkmCard> {
             height: 40.h,
           ),
         ),
-        VerticalDivider(
-          endIndent: 10,
-          color: Colors.black,
-          width: 10,
-        ),
+        SizedBox(width: 10.w,),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 DateFormat.yMMMMd().format(parsedDate),
-                style: TextStyle(fontSize: 14.sp,color: Colors.black),
+                style: blackTextStyle.copyWith(fontSize: 14.sp),
                 maxLines: 4,),
               SizedBox(height: 10.h,),
-              Text(widget.reviewUMKM.fields!.comment!,
+              Text(widget.reviewUMKM!.fields!.comment!,
                 maxLines: 10,
-                style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),),
+                style:blackTextStyle.copyWith(fontSize: 14.sp,),),
               SizedBox(height: 10.h,),
               Row(
                 children: [
-                  Text("${widget.reviewUMKM.fields!.rating!}",
-                    style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.bold,color: greenColor),),
+                  Text("${widget.reviewUMKM!.fields!.rating!}",
+                    style: greenTextStyle.copyWith(fontSize: 18.sp,fontWeight: FontWeight.bold),),
                   Text("/5",
-                    style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w500,color: greenColor),),
+                    style: greenTextStyle.copyWith(fontSize: 14.sp),),
                   SizedBox(width: 10.w,),
                   Row(
                       children: [1,2,3,4,5].map((index){
                         return Container(
                           margin: EdgeInsets.only(left: 2),
                           child: RatingItem(
-                              index.toDouble(),widget.reviewUMKM.fields!.rating!.toDouble()
+                              index.toDouble(),widget.reviewUMKM!.fields!.rating!.toDouble()
                           ),
                         );
                       }).toList()
