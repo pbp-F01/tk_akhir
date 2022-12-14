@@ -53,7 +53,7 @@ Dashboard laporan penjualan akan menampilkan laporan penjualan dari setiap UMKM 
 
 - Berita UMKM - **Shafa Aleyda Tsabitah**
 
-Berita UMKM akan menampilkan berita yang bersangkutan dengan perkembangan UMKM di Indonesia serta menambah komentar pada laman yang memuat berita tertentu.
+Berita UMKM akan menampilkan berita yang bersangkutan dengan perkembangan UMKM di Indonesia serta melihat komentar pada laman yang memuat berita tertentu.
 
 - Review/rating UMKM (dari konsumen) - **Ihza Dafa Maulidan**
 
